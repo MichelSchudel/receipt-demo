@@ -1,4 +1,4 @@
-package nl.craftsmen.blogdemo.api.mapper;
+package nl.craftsmen.blogdemo.api.mapper.response;
 
 import lombok.RequiredArgsConstructor;
 import nl.craftsmen.blogdemo.api.model.ReceiptLineModel;
@@ -13,7 +13,10 @@ public class ReceiptLineResponseMapper {
 
     ReceiptLineModel map(ReceiptLine receiptLine) {
         return ReceiptLineModel.builder()
-                .order(orderModelResponseMapper.mapOrder(receiptLine.getOrder())).totalPrice(receiptLine.getTotalPrice()).build();
+                .order(orderModelResponseMapper
+                        .mapOrder(receiptLine.order()))
+                .totalPrice(receiptLine.totalPrice())
+                .build();
     }
 
 

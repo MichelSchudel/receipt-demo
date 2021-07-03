@@ -10,6 +10,6 @@ public class PricingClient {
     private final PricingRestClient pricingRestClient;
 
     public double getPrice(String productName) {
-        return pricingRestClient.getPrice(productName).getPrice();
+        return pricingRestClient.getPrice(productName).price();
     }
 }

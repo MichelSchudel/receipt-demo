@@ -1,4 +1,4 @@
-package nl.craftsmen.blogdemo.api.mapper;
+package nl.craftsmen.blogdemo.api.mapper.request;
 
 import lombok.RequiredArgsConstructor;
 import nl.craftsmen.blogdemo.api.model.ShoppingBasketModel;
@@ -16,7 +16,7 @@ public class ShoppingBasketRequestMapper {
     private final OrderModelRequestMapper orderModelRequestMapper;
 
     public List<Order> map(ShoppingBasketModel shoppingBasketModel) {
-        return shoppingBasketModel.getOrders().stream()
+        return shoppingBasketModel.orders().stream()
                 .map(orderModelRequestMapper::map)
                 .collect(toList());
     }

@@ -1,15 +1,9 @@
 package nl.craftsmen.blogdemo.core.domain;
 
 import lombok.Builder;
-import lombok.Getter;
 
 import java.util.List;
 
-@Getter
 @Builder
-public class Receipt {
+public record Receipt(List<ReceiptLine> receiptLines, double totalPrice) {}
 
-    private List<ReceiptLine> receiptLines;
-
-    private double totalReceiptPrice;
-}

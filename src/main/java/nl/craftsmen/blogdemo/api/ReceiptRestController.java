@@ -1,8 +1,8 @@
 package nl.craftsmen.blogdemo.api;
 
 import lombok.RequiredArgsConstructor;
-import nl.craftsmen.blogdemo.api.mapper.ReceiptResponseMapper;
-import nl.craftsmen.blogdemo.api.mapper.ShoppingBasketRequestMapper;
+import nl.craftsmen.blogdemo.api.mapper.response.ReceiptResponseMapper;
+import nl.craftsmen.blogdemo.api.mapper.request.ShoppingBasketRequestMapper;
 import nl.craftsmen.blogdemo.api.model.ReceiptModel;
 import nl.craftsmen.blogdemo.api.model.ShoppingBasketModel;
 import nl.craftsmen.blogdemo.core.ReceiptService;
@@ -24,7 +24,7 @@ public class ReceiptRestController {
 
     private final ReceiptService receiptService;
     @PostMapping("/receipt")
-    ReceiptModel getReceipt(@Valid @RequestBody ShoppingBasketModel shoppingBasketModel) {
+    public ReceiptModel getReceipt(@Valid @RequestBody ShoppingBasketModel shoppingBasketModel) {
         List<Order> orders = shoppingBasketRequestMapper.map(shoppingBasketModel);
         Receipt receipt = receiptService.getReceipt(orders);
         return receiptResponseMapper.map(receipt);

@@ -26,10 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @EnableConfigurationProperties
-@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = { MockConfig.class })
-public class ReceiptApplicationIT {
+class ReceiptApplicationIT {
 
     @Autowired
     private WireMockServer mockPricingService;
@@ -43,15 +42,16 @@ public class ReceiptApplicationIT {
     }
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         String json = Files.readString(Paths.get(this.getClass().getResource("/post-receipt-request.json").toURI()));
         this.mockMvc.perform(post("/receipt")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(jsonPath("$.receiptLines[0].order.product").value("coffee"))
                 .andExpect(jsonPath("$.receiptLines[0].order.quantity").value("2"))
-                .andExpect(jsonPath("$.receiptLines[0].totalPrice").value("6"))
-                .andExpect(jsonPath("$.totalReceiptPrice").value("6"));
+                .andExpect(jsonPath("$.receiptLines[0].totalPrice").value("7.0"))
+                .andExpect(jsonPath("$.totalReceiptPrice").value("7.0"));
+
     }
 
 

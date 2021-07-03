@@ -17,26 +17,28 @@ public class ReceiptService {
 
     private final PricingClient pricingClient;
 
+    private final ReceiptLineMapper receiptLineMapper;
+
     public Receipt getReceipt(List<Order> orders) {
-        List<ReceiptLine> receiptLines = orders.stream()
-                .map(this::map)
-                .collect(toList());
-        double receiptPrice = receiptLines.stream()
-                .map(ReceiptLine::getTotalPrice)
-                .reduce(0.0, Double::sum);
+        List<ReceiptLine> receiptLines = generateReceiptLines(orders);
+        double receiptPrice = calculateTotalPrice(receiptLines);
         return Receipt.builder()
                 .receiptLines(receiptLines)
-                .totalReceiptPrice(receiptPrice)
+                .totalPrice(receiptPrice)
                 .build();
     }
 
-    private ReceiptLine map(Order order) {
-        double price = pricingClient.getPrice(order.getProduct());
-        double totalPrice = price * order.getQuantity();
-        return ReceiptLine.builder()
-                .order(order)
-                .totalPrice(totalPrice)
-                .build();
+    private List<ReceiptLine> generateReceiptLines(List<Order> orders) {
+        return orders.stream()
+                .map(order -> receiptLineMapper.map(order, pricingClient.getPrice(order.product())))
+                .collect(toList());
     }
+
+    private Double calculateTotalPrice(List<ReceiptLine> receiptLines) {
+        return receiptLines.stream()
+                .map(ReceiptLine::totalPrice)
+                .reduce(0.0, Double::sum);
+    }
+
 
 }

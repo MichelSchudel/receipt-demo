@@ -1,12 +1,7 @@
 package nl.craftsmen.blogdemo.api.model;
 
 import lombok.Builder;
-import lombok.Getter;
 
-@Getter
 @Builder
-public class ReceiptLineModel {
+public record ReceiptLineModel(OrderModel order, double totalPrice) {}
 
-    private final OrderModel order;
-    private final double totalPrice;
-}

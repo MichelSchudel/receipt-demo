@@ -1,0 +1,12 @@
+{
+  "receiptLines": [
+    {
+      "order": {
+        "product": "coffee",
+        "quantity": 2
+      },
+      "totalPrice": 7
+    }
+  ],
+  "totalReceiptPrice": 7
+}

@@ -1,4 +1,4 @@
-package nl.craftsmen.blogdemo.api.mapper;
+package nl.craftsmen.blogdemo.api.mapper.request;
 
 import nl.craftsmen.blogdemo.api.model.OrderModel;
 import nl.craftsmen.blogdemo.core.domain.Order;
@@ -9,8 +9,8 @@ public class OrderModelRequestMapper {
 
     Order map(OrderModel orderModel) {
         return Order.builder()
-                .product(orderModel.getProduct())
-                .quantity(orderModel.getQuantity())
+                .product(orderModel.product())
+                .quantity(orderModel.quantity())
                 .build();
     }
 }

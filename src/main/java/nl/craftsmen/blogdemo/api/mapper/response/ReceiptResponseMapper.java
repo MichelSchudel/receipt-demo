@@ -1,4 +1,4 @@
-package nl.craftsmen.blogdemo.api.mapper;
+package nl.craftsmen.blogdemo.api.mapper.response;
 
 import lombok.RequiredArgsConstructor;
 import nl.craftsmen.blogdemo.api.model.ReceiptModel;
@@ -15,11 +15,12 @@ public class ReceiptResponseMapper {
 
     public ReceiptModel map(Receipt receipt) {
         return ReceiptModel.builder()
-                .receiptLines(receipt.getReceiptLines()
+
+                .receiptLines(receipt.receiptLines()
                         .stream()
                         .map(receiptLineResponseMapper::map)
                         .collect(toList()))
-                .totalReceiptPrice(receipt.getTotalReceiptPrice())
+                .totalReceiptPrice(receipt.totalPrice())
                 .build();
     }
 
